@@ -1,0 +1,17 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.box-game-container {
+    display: grid;
+    grid-template-columns: repeat(3,50px);
+}
+
+.box-game {
+    border: 1px solid;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
