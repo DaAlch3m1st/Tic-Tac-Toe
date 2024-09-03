@@ -1,12 +1,27 @@
 const players = {
-  player1: 'x',
-  player2: 'o'
+  player1: '',
+  player2: '',
 }
 
-const gameboard = {
-  array: 
-    Array(9).fill('')
+function createPlayer() {
+  const addPlayersName = document.getElementById('addPlayersBtn');
+  return {
+    player1: function(value="player 1") {
+      addPlayersName.addEventListener('click', function() {
+      return players.player1 = value;
+    })
+    },
+    player2: function(value="player 2") {
+      addPlayersName.addEventListener('click', function() {
+        return players.player2 = value;
+      })    
+    },
+  }
 }
+
+const x = createPlayer();
+x.player1();
+x.player2();
 
 const boxes = document.querySelectorAll('.box-game');
 const getCombos = () => {
@@ -25,25 +40,22 @@ const getCombos = () => {
 }
 
 function winningCombinations() {
-  let winner = null;
   const currentCombos = getCombos();
-  currentCombos.combos.forEach(array => {
-    const valueX = array.every((subArray) => subArray.includes(players.player1));
-    const valueO = array.every((subArray) => subArray.includes(players.player2));
-    if (valueX) {
-      winner = players.player1;
-    } else if (valueO) {
-      winner = players.player2;
-    }
+  currentCombos.combos.forEach((array, player1Name, player2Name) => {
+    player1Name = player1Name;
+    player2Name = player2Name;
+    const valueX = array.every((subArray) => subArray.includes('X'));
+    const valueO = array.every((subArray) => subArray.includes('O'));
+      if (valueX) {
+        console.log(`Player "${players.player1}" won the game`);
+      } else if (valueO) {
+        console.log(`Player "${players.player2}" won the game`);
+      } else if (!valueX || !valueO) {
+        console.log('Tie');
+      }
   });
-  if (winner === players.player1) {
-    console.log('Player "X" win');
-  } else if (winner === players.player2) {
-    console.log('Player "O" win');
-  } else {
-    console.log('Tie');
-  }
-}
+} 
+//ANCHOR - POSIBLEMENTE VER CUANDO TODOS LOS VALORES SON TRUE OR FALSE Y AHI DETERMINAR EL EMPATE COMO SI TODA LA GAMEBOARD ESTE LLENA
 
 function emptyBoard() {
   const resetBtn = document.getElementById('reset');
@@ -54,7 +66,6 @@ function emptyBoard() {
   })
 }
 
-emptyBoard();
 
 function dom() {
   const boxes = document.querySelectorAll('.box-game')
@@ -62,13 +73,11 @@ function dom() {
 
   boxes.forEach(box => {
     box.addEventListener('click', function handleToggle() {
-      const currentCombos = getCombos();
-      console.log(currentCombos.combos);
-      if (!toggle) {
-        box.textContent = players.player1;
-      } else {
-        box.textContent = players.player2;
-      }
+        if (!toggle) {
+          box.textContent = 'X';
+        } else {
+          box.textContent = 'O';
+        }
       toggle = !toggle;
       winningCombinations();
       box.removeEventListener('click', handleToggle);
