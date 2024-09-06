@@ -56,40 +56,27 @@ const getCombos = () => {
 }
 
 function tie() {
-  boxes.forEach(array => {
-    const text = array.textContent;
-    if (text.length > 0) {
-      console.log(true);
-    } else {
-      console.log(false);
-    }
-  })
+  const x = Array.from(boxes).every(element => element.textContent.trim() !== '');
+  return x;
 }
 
+
 function winningCombinations() {
-  let content = false;
   const currentCombos = getCombos();
   currentCombos.combos.forEach((array) => {
     const valueX = array.every((subArray) => subArray.includes('X'));
     const valueO = array.every((subArray) => subArray.includes('O'));
+    console.log("los valores de X", valueX);
+    console.log("los valores de O", valueO)
       if (valueX) {
-        document.getElementById('winnerPlayer').textContent = `Player "${players.player1}" won the game`
+        document.getElementById('winnerPlayer').textContent = `Player "${players.player1}" won the game`;
       } else if (valueO) {
-        return document.getElementById('winnerPlayer').textContent = `Player "${players.player2}" won the game`
+        document.getElementById('winnerPlayer').textContent = `Player "${players.player2}" won the game`;
+      } else if (tie()) {
+        document.getElementById('winnerPlayer').textContent = `It's a Tie 🥻`;
       }
   });
 } 
-//ANCHOR - POSIBLEMENTE VER CUANDO TODOS LOS VALORES SON TRUE OR FALSE Y AHI DETERMINAR EL EMPATE COMO SI TODA LA GAMEBOARD ESTE LLENA
-
-function emptyBoard() {
-  const resetBtn = document.getElementById('reset');
-  boxes.forEach(arr => {
-    resetBtn.addEventListener('click', function() {
-      arr.textContent='';
-    })
-  })
-}
-
 
 function dom() {
   const boxes = document.querySelectorAll('.box-game')
