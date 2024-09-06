@@ -5,18 +5,34 @@ const players = {
 
 function createPlayer() {
   const addPlayersName = document.getElementById('addPlayersBtn');
-  return {
-    player1: function(value="player 1") {
-      addPlayersName.addEventListener('click', function() {
-      return players.player1 = value;
-    })
-    },
-    player2: function(value="player 2") {
-      addPlayersName.addEventListener('click', function() {
-        return players.player2 = value;
-      })    
-    },
-  }
+  const player1Input = document.getElementById('player1Input');
+  const player2Input = document.getElementById('player2Input');
+      return {
+        player1: function() {
+          addPlayersName.addEventListener('click', function() {
+          const playerValue = player1Input.value.trim();
+          if (playerValue === '') {
+            players.player1 = 'player 1';
+            console.log(players.player1);
+          } else {
+            players.player1 = playerValue;
+            console.log(players.player1);
+          }
+        })
+        },
+        player2: function() {
+          addPlayersName.addEventListener('click', function() {
+            const playerValue = player2Input.value.trim();
+            if (playerValue === '') {
+              players.player2 = 'player 2';
+              console.log(players.player2);
+            } else {
+              players.player2 = playerValue;
+              console.log(players.player2);
+            }
+          });  
+        },
+      }
 }
 
 const x = createPlayer();
@@ -39,19 +55,27 @@ const getCombos = () => {
   };
 }
 
+function tie() {
+  boxes.forEach(array => {
+    const text = array.textContent;
+    if (text.length > 0) {
+      console.log(true);
+    } else {
+      console.log(false);
+    }
+  })
+}
+
 function winningCombinations() {
+  let content = false;
   const currentCombos = getCombos();
-  currentCombos.combos.forEach((array, player1Name, player2Name) => {
-    player1Name = player1Name;
-    player2Name = player2Name;
+  currentCombos.combos.forEach((array) => {
     const valueX = array.every((subArray) => subArray.includes('X'));
     const valueO = array.every((subArray) => subArray.includes('O'));
       if (valueX) {
-        console.log(`Player "${players.player1}" won the game`);
+        document.getElementById('winnerPlayer').textContent = `Player "${players.player1}" won the game`
       } else if (valueO) {
-        console.log(`Player "${players.player2}" won the game`);
-      } else if (!valueX || !valueO) {
-        console.log('Tie');
+        return document.getElementById('winnerPlayer').textContent = `Player "${players.player2}" won the game`
       }
   });
 } 
