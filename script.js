@@ -9,6 +9,8 @@ function createPlayer() {
   const player2Input = document.getElementById('player2Input');
       return {
         player1: function() {
+          players.player1 = 'player 1';
+          console.log(players.player1);
           addPlayersName.addEventListener('click', function() {
           const playerValue = player1Input.value.trim();
           if (playerValue === '') {
@@ -21,6 +23,8 @@ function createPlayer() {
         })
         },
         player2: function() {
+          players.player2 = 'player 2';
+          console.log(players.player2);
           addPlayersName.addEventListener('click', function() {
             const playerValue = player2Input.value.trim();
             if (playerValue === '') {
@@ -56,24 +60,33 @@ const getCombos = () => {
 }
 
 function tie() {
-  const x = Array.from(boxes).every(element => element.textContent.trim() !== '');
-  return x;
+  const currentCombos = getCombos();
+  return currentCombos.combos.every((array) => {
+    const x = Array.from(boxes).every(element => element.textContent.trim() !== '');
+    const valueX = array.every((subArray) => subArray.includes('X'));
+    const valueO = array.every((subArray) => subArray.includes('O'));
+    if (x && valueX === false && valueO === false) { 
+      return true;
+    } else {
+      return false;
+    }
+  });
 }
-
 
 function winningCombinations() {
   const currentCombos = getCombos();
   currentCombos.combos.forEach((array) => {
     const valueX = array.every((subArray) => subArray.includes('X'));
     const valueO = array.every((subArray) => subArray.includes('O'));
-    console.log("los valores de X", valueX);
-    console.log("los valores de O", valueO)
       if (valueX) {
-        document.getElementById('winnerPlayer').textContent = `Player "${players.player1}" won the game`;
+        console.log(`"${players.player1}" won the game`)
+        document.getElementById('winnerPlayer').textContent = `"${players.player1}" won the game`;
       } else if (valueO) {
-        document.getElementById('winnerPlayer').textContent = `Player "${players.player2}" won the game`;
-      } else if (tie()) {
-        document.getElementById('winnerPlayer').textContent = `It's a Tie 🥻`;
+        console.log(`"${players.player2}" won the game`)
+        document.getElementById('winnerPlayer').textContent = `"${players.player2}" won the game`;
+      } else if (tie() === true) {
+        console.log("It's a tie");
+        document.getElementById('winnerPlayer').textContent = `It's a tie 🥻`;
       }
   });
 } 
@@ -90,8 +103,8 @@ function dom() {
           box.textContent = 'O';
         }
       toggle = !toggle;
-      winningCombinations();
       box.removeEventListener('click', handleToggle);
+      winningCombinations();
     });
   })
 }
