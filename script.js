@@ -3,6 +3,8 @@ const players = {
   player2: '',
 }
 
+let toggle = false;
+
 function createPlayer() {
   const addPlayersName = document.getElementById('addPlayersBtn');
   const player1Input = document.getElementById('player1Input');
@@ -92,10 +94,19 @@ function winningCombinations() {
 } 
 
 function dom() {
+  const resetBtn = document.getElementById('reset');
   const boxes = document.querySelectorAll('.box-game')
-  let toggle = false;
+  let toggleBtn = false;
+
+  resetBtn.addEventListener('click', function() {
+    toggleBtn = true;
+    if (toggleBtn == true) {
+      location.reload();
+    }
+  })
 
   boxes.forEach(box => {
+    box.classList.add('boxText');
     box.addEventListener('click', function handleToggle() {
         if (!toggle) {
           box.textContent = 'X';
@@ -103,10 +114,13 @@ function dom() {
           box.textContent = 'O';
         }
       toggle = !toggle;
-      box.removeEventListener('click', handleToggle);
+      if (toggleBtn == false) {
+        box.removeEventListener('click', handleToggle);
+      }
       winningCombinations();
     });
   })
+
 }
 
 dom();

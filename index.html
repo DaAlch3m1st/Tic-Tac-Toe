@@ -9,13 +9,16 @@
 </head>
 <body>
     <section class="hero">
-        <h1>TIC TAC TOE</h1>
+        <h1 class="header">TIC TAC TOE</h1>
     </section>
 
     <section class="game">
-        <input type="text" placeholder="Player 1" id="player1Input">
-        <input type="text" placeholder="Player 2" id="player2Input">
+        <div class="input-players">
+            <input type="text" placeholder="Player 1" id="player1Input">
+            <input type="text" placeholder="Player 2" id="player2Input">
+        </div>
         <button id="addPlayersBtn">Click</button>
+        <div><button id="reset">RESET</button></div>
         <div class="box-game-container" id="gameboard"> 
             <div class="box-game" id="box1"></div>
             <div class="box-game" id="box2"></div>
@@ -25,11 +28,10 @@
             <div class="box-game" id="box6"></div>
             <div class="box-game" id="box7"></div>
             <div class="box-game" id="box8"></div>
-            <div class="box-game" id="box9"></div>
+            <div class="box-game" id="box9"></div>            
         </div>
-        <div id="winnerPlayer"></div>
+        <div id="winnerPlayer">Bryan Won</div>
     </section>
-    <div><button id="reset">RESET</button></div>
     
     <script src="script.js"></script>
 </body>
