@@ -83,9 +83,15 @@ function winningCombinations() {
       if (valueX) {
         console.log(`"${players.player1}" won the game`)
         document.getElementById('winnerPlayer').textContent = `"${players.player1}" won the game`;
-      } else if (valueO) {
+        setTimeout(function(){
+            location.reload();
+        }, 3000);
+     } else if (valueO) {
         console.log(`"${players.player2}" won the game`)
         document.getElementById('winnerPlayer').textContent = `"${players.player2}" won the game`;
+        setTimeout(function(){
+            location.reload();
+        }, 3000);
       } else if (tie() === true) {
         console.log("It's a tie");
         document.getElementById('winnerPlayer').textContent = `It's a tie 🥻`;
@@ -117,10 +123,11 @@ function dom() {
       if (toggleBtn == false) {
         box.removeEventListener('click', handleToggle);
       }
-      winningCombinations();
+      if (winningCombinations()) {
+        location.reload();
+      }
     });
   })
-
 }
 
 dom();
